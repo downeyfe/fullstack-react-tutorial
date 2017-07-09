@@ -22,7 +22,8 @@ const Product = React.createClass({
                         <img
                             className='ui avatar image'
                             src={this.props.submitterAvatarUrl}
-                        /></div>
+                        />
+                    </div>
                 </div>
             </div>
         );
@@ -31,19 +32,26 @@ const Product = React.createClass({
 
 const ProductList = React.createClass({
     render: function () {
-        const product = Seed.products[0];
+        const products = Seed.products.map(product => {
+            return (
+                <div className='ui items'>
+                    <Product
+                        key={'product-' + product.id}
+                        id={product.id}
+                        title={product.title}
+                        description={product.description}
+                        url={product.url}
+                        votes={product.votes}
+                        submitterAvatarUrl={product.submitterAvatarUrl}
+                        productImageUrl={product.productImageUrl}
+                    />
+                </div>
+            );
+        });
 
         return (
             <div className='ui items'>
-                <Product
-                    id={product.id}
-                    title={product.title}
-                    description={product.description}
-                    url={product.url}
-                    votes={product.votes}
-                    submitterAvatarUrl={product.submitterAvatarUrl}
-                    productImageUrl={product.productImageUrl}
-                />
+                {products}
             </div>
         );
     }
